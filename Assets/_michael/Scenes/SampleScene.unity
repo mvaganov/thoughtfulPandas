@@ -343,5 +343,7 @@ MonoBehaviour:
     type: 3}
   prefab_blackSquare: {fileID: 1714094231539047372, guid: 1158fc3a0a035f94bb262b7633962442,
     type: 3}
-  prefab_redToken: {fileID: 0}
-  prefab_blackToken: {fileID: 0}
+  prefab_redToken: {fileID: 8877175404579410661, guid: 4d13605a527a54c4c813c84d713145f7,
+    type: 3}
+  prefab_blackToken: {fileID: 8116083797423873749, guid: c79589cc30803f74aab68ce96ce49d42,
+    type: 3}
