@@ -81,7 +81,7 @@ public class Board : MonoBehaviour
 		// make red team
 		for(int i = 0; i < 4; i++)
 		{
-			Vector3Int pos = new Vector3Int(0, 0, i * 2);
+			Vector3Int pos = new Vector3Int(i * 2 + 1, 0, 0);
 			GameObject pObject = Instantiate(prefab_redToken);
 			pObject.transform.SetParent(this.transform);
 			Piece piece = pObject.GetComponent<Piece>();
