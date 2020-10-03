@@ -389,7 +389,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualizer: {fileID: 476229671}
+  board: {fileID: 1622256326}
   selected: {fileID: 0}
+  selectedTile: {x: 0, y: 0, z: 0}
 --- !u!1 &1622256324
 GameObject:
   m_ObjectHideFlags: 0

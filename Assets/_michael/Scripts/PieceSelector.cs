@@ -7,7 +7,11 @@ public class PieceSelector : MonoBehaviour
 	public GameObject visualizer;
 	Camera cam;
 
+	public Board board;
+
 	public Piece selected;
+
+	public Vector3Int selectedTile;
 
     void Start()
     {
@@ -23,6 +27,10 @@ public class PieceSelector : MonoBehaviour
 		{
 			visualizer.transform.position = whatTheMouseIsHitting.point;
 			hitLocation = whatTheMouseIsHitting.point;
+			if(board != null)
+			{
+				selectedTile = board.ConvertWorldPositionToBoardPosition(hitLocation);
+			}
 			if (whatTheMouseIsHitting.collider != null)
 			{
 				Piece p = whatTheMouseIsHitting.collider.transform.parent.GetComponent<Piece>();
@@ -33,6 +41,7 @@ public class PieceSelector : MonoBehaviour
 			}
 		} else {
 			hitLocation = Vector3.zero;
+			selectedTile = board.ConvertWorldPositionToBoardPosition(hitLocation);
 		}
 		return null;
 	}

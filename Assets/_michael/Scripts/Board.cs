@@ -53,6 +53,16 @@ public class Board : MonoBehaviour
 	//		keeps track of the empty squares
 	//		what peice is where
 
+	public Vector3Int ConvertWorldPositionToBoardPosition(Vector3 worldPosition)
+	{
+		Vector3Int boardPos = new Vector3Int();
+		Vector3 localBoard = transform.InverseTransformPoint(worldPosition);
+		boardPos.x = (int)localBoard.x;
+		boardPos.y = (int)localBoard.y;
+		boardPos.z = (int)localBoard.z;
+		return boardPos;
+	}
+
 	public void InitailizeBoard()
 	{
 		boardtiles = new GameObject[height][];
