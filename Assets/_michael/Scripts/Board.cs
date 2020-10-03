@@ -56,7 +56,7 @@ public class Board : MonoBehaviour
 	public Vector3Int ConvertWorldPositionToBoardPosition(Vector3 worldPosition)
 	{
 		Vector3Int boardPos = new Vector3Int();
-		Vector3 localBoard = transform.InverseTransformPoint(worldPosition);
+		Vector3 localBoard = transform.InverseTransformPoint(worldPosition) + Vector3.one/2;
 		boardPos.x = (int)localBoard.x;
 		boardPos.y = (int)localBoard.y;
 		boardPos.z = (int)localBoard.z;

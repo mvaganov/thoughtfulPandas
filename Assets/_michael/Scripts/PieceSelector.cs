@@ -46,9 +46,20 @@ public class PieceSelector : MonoBehaviour
 		return null;
 	}
 
+	void TestPosition()
+	{
+		Ray mouseRay = cam.ScreenPointToRay(Input.mousePosition);
+		RaycastHit whatTheMouseIsHitting = new RaycastHit();
+		bool hitSomething = Physics.Raycast(mouseRay, out whatTheMouseIsHitting);
+		if (hitSomething)
+		{
+			selectedTile = board.ConvertWorldPositionToBoardPosition(whatTheMouseIsHitting.point);
+		}
+	}
+
 	void Update()
     {
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0)) // testing if the left mouse button was pressed this frame
 		{
 			Vector3 spot;
 			Piece p = GetPieceAtMouse(out spot);
@@ -59,6 +70,9 @@ public class PieceSelector : MonoBehaviour
 				selected.transform.position = spot;
 				selected = null;
 			}
+		} else if (Input.GetMouseButton(0)) // tests if the left mouse button is being held
+		{
+			TestPosition();
 		}
     }
 }
