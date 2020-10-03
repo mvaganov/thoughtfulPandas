@@ -55,19 +55,35 @@ public class PieceSelector : MonoBehaviour
 		{
 			selectedTile = board.ConvertWorldPositionToBoardPosition(whatTheMouseIsHitting.point);
 		}
+		if(board != null)
+		{
+			board.SetSparkleTile(selectedTile);
+		}
 	}
 
+	public void SetAllRenderersColors(Transform t, Color[] colorToAssign, out Color[] oldColorsFound)
+	{
+		Renderer[] renderers = t.GetComponentsInChildren<Renderer>();
+		oldColorsFound = new Color[renderers.Length];
+		for (int i = 0; i < renderers.Length; ++i) {
+			oldColorsFound[i] = renderers[i].material.color;
+			renderers[i].material.color = colorToAssign[i % colorToAssign.Length];
+		}
+	}
+
+	private Color[] oldColors;
 	void Update()
     {
 		if (Input.GetMouseButtonDown(0)) // testing if the left mouse button was pressed this frame
 		{
 			Vector3 spot;
 			Piece p = GetPieceAtMouse(out spot);
-			if(selected == null)
-			{
+			if(selected == null && p != null) {
 				selected = p;
-			} else {
+				SetAllRenderersColors(p.transform, new Color[] { Color.yellow }, out oldColors);
+			} else if (selected != null) {
 				selected.transform.position = spot;
+				SetAllRenderersColors(selected.transform, oldColors, out _); // set the colors back
 				selected = null;
 			}
 		} else if (Input.GetMouseButton(0)) // tests if the left mouse button is being held

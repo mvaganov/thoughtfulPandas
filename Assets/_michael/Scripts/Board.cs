@@ -7,6 +7,8 @@ public class Board : MonoBehaviour
 	public GameObject prefab_redSquare, prefab_blackSquare;
 	public GameObject prefab_redToken, prefab_blackToken;
 
+	public ParticleSystem tileSparkler;
+
 	public GameObject[][] boardtiles;
 	public Piece[][] pieces;
 
@@ -55,12 +57,37 @@ public class Board : MonoBehaviour
 
 	public Vector3Int ConvertWorldPositionToBoardPosition(Vector3 worldPosition)
 	{
-		Vector3Int boardPos = new Vector3Int();
 		Vector3 localBoard = transform.InverseTransformPoint(worldPosition) + Vector3.one/2;
-		boardPos.x = (int)localBoard.x;
-		boardPos.y = (int)localBoard.y;
-		boardPos.z = (int)localBoard.z;
+		Vector3Int boardPos = new Vector3Int((int)localBoard.x, (int)localBoard.y, (int)localBoard.z);
 		return boardPos;
+	}
+
+	public Vector3 ConvertBoardPositionToWorldPosition(Vector3Int boardPosition)
+	{
+		Vector3 world = new Vector3(boardPosition.x, boardPosition.y, boardPosition.z);
+		world = transform.TransformPoint(world);
+		return world;
+	}
+
+	public readonly static Vector3Int InvalidBoardPosition = new Vector3Int(-1, -1, -1);
+
+	public void SetSparkleTile(Vector3Int boardPos)
+	{
+		if (tileSparkler == null)
+		{
+			Debug.LogWarning("no " + nameof(tileSparkler) + " set");
+			return;
+		}
+		if(boardPos == InvalidBoardPosition)
+		{
+			tileSparkler.gameObject.SetActive(false);
+			return;
+		}
+		if (tileSparkler.gameObject.activeInHierarchy == false)
+		{
+			tileSparkler.gameObject.SetActive(true);
+		}
+		tileSparkler.transform.position = ConvertBoardPositionToWorldPosition(boardPos);
 	}
 
 	public void InitailizeBoard()
@@ -109,6 +136,7 @@ public class Board : MonoBehaviour
 	void Start()
     {
 		GenerateGame();
+		SetSparkleTile(InvalidBoardPosition);
 	}
 
     // Update is called once per frame
