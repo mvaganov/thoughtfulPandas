@@ -98,7 +98,12 @@ public class Board : MonoBehaviour
 			boardtiles[row] = new GameObject[width];
 			for (int col = 0; col < width; ++col)
 			{
-				GameObject srcTile = ((col + row) % 2 == 0) ? prefab_redSquare : prefab_blackSquare;
+				GameObject srcTile = null;
+				if ((col + row) % 2 == 0) {
+					 srcTile = prefab_redSquare;
+				} else {
+					srcTile = prefab_blackSquare;
+				}
 				GameObject tile = Instantiate(srcTile);
 				tile.transform.SetParent(transform);
 				tile.transform.localPosition = new Vector3(col, 0, row);
